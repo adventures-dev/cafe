@@ -5,7 +5,7 @@ include("../scripts/dbconnect.php");
 $number = $_POST['number']; //required
 $limitnumber = 25; //edit limitnumber if you wish to load more
 
-$data = mysql_query("SELECT * FROM users WHERE admin != 1 ORDER BY username LIMIT " . $number . ", $limitnumber") or die(mysql_error());
+$data = mysql_query("SELECT * FROM users ORDER BY username LIMIT " . $number . ", $limitnumber") or die(mysql_error());
 
 $array = array();
 while ($row = mysql_fetch_array($data)) {

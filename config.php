@@ -4,7 +4,7 @@
 
 	//DATABASE
 	$strHostName = "localhost";
-	$strDbName = "davestrap";
+	$strDbName = "cafe";
 	$strUserName = "root";
 	$strPassword = "pass";
 	

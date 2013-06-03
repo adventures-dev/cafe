@@ -5,7 +5,7 @@
     
     <head>
         <meta charset="utf-8">
-        <title>Davestrap</title>
+        <title>Museao Cafe</title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -47,38 +47,17 @@
 						<div class="navbar">
 						  <div class="navbar-inner">
 						
-						    <a class="brand" href="../">davestrap</a>
+						    <a class="brand" href="../">museao cafe</a>
 						 
 						  			  <ul class="nav pull-right <?php if($_SESSION['user']){echo "hidden";} ?>">
 						       
-						                    </ul>
+						  			  </ul>
 						  </div>
 						  </div>
 						</div>
 
                                         
-                   <div class="off-white-bg">
-	                   	<div class="container">
-	                   		<div class="row-fluid">
-	                   		  <div class="span4"></div> 
-	                   			<div class="span4">
-	                   				<?php include( "snippets/login-form.php");?>
-                                                    
-                                    <!-- FACEBOOK LOGIN BUTTON -->
-                                    <a href="javascript:void(0);" onclick="login();" class="input-block-level <?php if($use_facebook != true){echo " hidden ";}?>">
-                                        <img src="assets/img/facebook_button.png">
-                                    </a><!--end facebook button -->
-                                    
-                                    <a style="font-size:.7em" href="forgot">Forgot your password?</a><br>
-                                    <a style="font-size:.7em" href="register">Register</a>
-
-	                   			</div>
-	                   			  <div class="span4"></div> 
-	                   		</div>
-	                   	</div>
-                   </div>
-                    
-                    <div class="white-bg"> <!--section-->
+                     <div class="white-bg"> <!--section-->
 
                         <div class="container">
                             <div class="row-fluid">

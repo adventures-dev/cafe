@@ -95,31 +95,6 @@
 
     });
 
-    function makeAdmin(ele, id) {
-
-        if (confirm('Are you sure you want to give this user admin controls?')) {
-            var data = {
-                id: id
-            };
-            $.ajax({
-                type: "POST",
-                url: "make-admin.php",
-                data: data,
-                success: function (res) {
-                    if (res == true) {
-                        //success action
-                        ele.remove();
-
-                    } else {
-                        //failure action
-                    }
-
-                }
-            });
-
-        }
-    }
-
     function removeUser(ele, id) {
 
         if (confirm('Are you sure you want to remove this user?')) {
@@ -167,7 +142,7 @@
                 for (var i = 0; i < res.length; i++) {
                     //use this section to display all the data, use some .append() or something
 
-                    $("#feed").append("<tr id='" + res[i]['id'] + "'><td>" + res[i]["username"] + "</td><td><a href='#' class='adminbutton'>Make Admin</a></td><td><a href='#' class='removebutton'>Remove User</a></td></tr>");
+                    $("#feed").append("<tr id='" + res[i]['id'] + "'><td>" + res[i]["username"] + "</td><td><a href='#' class='removebutton'>Remove User</a></td></tr>");
                     number++;
                 }
 
@@ -175,12 +150,7 @@
                     //display error message here
                     nodata = true;
                 }  
-                
-                $(".adminbutton").click(function () {
-                    //action here
-                    makeAdmin($(this).parent().parent(), $(this).parent().parent().attr('id'));
-
-                });
+   
 
                 $(".removebutton").click(function () {
                     //action here

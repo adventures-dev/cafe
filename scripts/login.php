@@ -7,7 +7,7 @@ $password = $_POST['password'];
 
 if ($username && $password) {
     $username = strtolower($username);
-    $query = mysql_query("SELECT * FROM users WHERE username = '$username' AND facebook != 1") or die(mysql_error());
+    $query = mysql_query("SELECT * FROM users WHERE username = '$username'") or die(mysql_error());
     
     $numrows = mysql_num_rows($query);
     
