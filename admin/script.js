@@ -5,16 +5,7 @@
                         username: {
                             required: true
                         },
-                        firstname: {
-                            required: true
-                        },
-                        lastname: {
-                            required: true
-                        },
-                        email: {
-                            required: true,
-                            email: true
-                        },
+                
                         password: {
                             required: true,
                             minlength: 5
@@ -42,16 +33,11 @@
                         
                         var username = $('#new_username').val();
                         var password = $('#pass').val();
-                        var firstname = $('#firstname').val();
-                        var lastname = $('#lastname').val();
-                        var email = $('#email').val();
 
                         var data = {
                             username: username,
-                            password: password,
-                            firstname: firstname,
-                            lastname: lastname,
-                            email: email
+                            password: password
+           
                         }; 
 
                         $.ajax({
@@ -59,7 +45,7 @@
                             url: "register-new.php",
                             data: data,
                             success: function (res) {
-                            
+                            	console.log(res);
                             	$("#register-form div").remove(".spinner");//remove loading icon here
 
                             	if (res == true) {
@@ -113,6 +99,7 @@
 
                     } else {
                         //failure action
+                        $("#feed").prepend("You cannot delete yourself.");
                     }
                 }
             });
@@ -141,8 +128,8 @@
                 $("#feed div").remove(".spinner"); //remove loading icon here
                 for (var i = 0; i < res.length; i++) {
                     //use this section to display all the data, use some .append() or something
+	                       $("#feed").append("<tr id='" + res[i]['id'] + "'><td>" + res[i]["username"] + "</td><td><a href='#' class='removebutton'>Remove User</a></td></tr>");
 
-                    $("#feed").append("<tr id='" + res[i]['id'] + "'><td>" + res[i]["username"] + "</td><td><a href='#' class='removebutton'>Remove User</a></td></tr>");
                     number++;
                 }
 

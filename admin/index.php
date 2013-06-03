@@ -1,4 +1,4 @@
-<?php session_start(); if(!$_SESSION[ 'user']){ header('Location: ../'); } ?>
+<?php session_start(); if(!$_SESSION[ 'user']){ header('Location: ../login'); } ?>
 <?php include("../scripts/dbconnect.php");?>
 <?php include("../snippets/header.php");?>
 <?php include("../scripts/user-info.php");?>
@@ -15,7 +15,7 @@
 
                 </div>
                 <div class="span6">
-                    <table id="feed" class="table table-bordered table-striped "></table>
+                    <table id="feed" class="table table-bordered table-striped"></table>
                 </div>
             </div>
         </div>

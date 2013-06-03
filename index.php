@@ -56,32 +56,14 @@
 						  </div>
 						</div>
 
-                                        
-                     <div class="white-bg"> <!--section-->
-
-                        <div class="container">
-                            <div class="row-fluid">
-                            <div class="span4"></div>                
-                                <div class="span4">
-                                    <h4>Enter Admin Info</h4>
-                                    <div id="create-error"></div>
-                                    <form id="create-form" action="" method="post">
-                                        <input type="text" id="admin" name="admin" placeholder="username" class="input-block-level">
-                                        <input type="password" id="adminpass" name="adminpass" placeholder="password" class="input-block-level">
-                                        <button class="btn btn-large" id="createbutton">Create Table</button>
-                                    </form>
-                                </div><!-- end of table creation-->
-                                  <div class="span4"></div> 
-                            </div>
-                        </div>
-                    </div><!--end of section-->
-                </div><!--end of main-->
+                  </div><!--end of main-->
             </div> <!--end-of-wrap-->
            
         </div><!--end-of-main-page-->
-        
+        <hr>
         <footer>
-        	<div class="container">
+        	<div class="container" align="center">
+        		<a href="login">Admin</a>
 	        <div>
         </footer><!-- end of foooooooter -->
         
@@ -98,97 +80,6 @@
                         
         <script type="text/javascript">
         
-            $("#create-form").validate({
-
-                rules: {
-                    admin: "required",
-                    adminpass: {
-                        required: true,
-                        minlength: 5
-                    }
-
-                },
-                messages: {
-                    admin: "<font style='color:red;'>Please enter a username</font>",
-                    adminpass: {
-                        required: "<font style='color:red;'>Please enter a password</font>",
-                        minlength: "<font style='color:red;'>Your password must be at least 5 characters long</font>"
-                    }
-                },
-                submitHandler: function (form) {
-                    $("<idorclass>").append('<div class="center spinner"><i class="icon-spinner icon-spin"></i></div>');
-                    $("create-error").empty();
-
-                    var admin = $("#admin").val();
-                    var password = $("#adminpass").val();
-
-                    var data = {
-                        admin: admin,
-                        password: password
-                    };
-                    $.ajax({
-                        type: "POST",
-                        url: "scripts/create-tables.php",
-                        data: data,
-                        success: function (res) {
-                            if (res == true) {
-                                $("#error").empty();
-                                $("#error").append('<h4>Your tables have been created!</h4>');
-                                window.location = 'profile';
-                            } else {
-                                $("#error").empty();
-                                $("#error").append('<font style="color:red;">' + res + '</font>');
-                            }
-                        }
-                    });
-                }
-            });
-
-            //login validation
-            $("#login-form").validate({
-
-                rules: {
-                    username: "required",
-                    password: "required"
-
-                },
-                messages: {
-                    username: "<font style='color:red;'>Please enter a username</font>",
-                    password: "<font style='color:red;'>Please enter a password</font>"
-                },
-                submitHandler: function (form) {
-                    $("#login-form").append('<div class="center spinner"><i class="icon-spinner icon-spin"></i></div>');
-
-                    ///ajax here::::
-                    $("#login-error").empty();
-
-                    var user_username = $(form).children("#username").val();
-                    var user_password = $(form).children("#password").val();
-
-                    var data = {
-                        username: user_username,
-                        password: user_password,
-                    };
-
-                    $.ajax({
-                        type: "POST",
-                        url: "scripts/login.php",
-                        data: data,
-                        success: function (res) {
-                            $("#login-form div").remove(".spinner"); //remove loading icon here
-
-                            if (res == true) {
-                                window.location = "profile";
-                            } else {
-
-                                $("#login-error").append('<font style="color:red;">' + res + '</font>');
-                            }
-                        }
-                    });
-
-                }
-            });
-
            
         </script><!-- end of other scripts -->
         
