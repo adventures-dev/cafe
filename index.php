@@ -1,9 +1,11 @@
 <?php session_start(); if($_SESSION[ 'user']){ header( 'Location: admin'); } //checks if the user is logged in ?> 
 <?php
 	//get cart
-	
 	$shopping_cart = $_SESSION['cart'];
-
+	//session_destroy();
+	//for($i=0; $i<count($shopping_cart); $i++){
+	//	echo $shopping_cart[$i]." ";
+	//}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +58,7 @@
 						 
 						  			  <ul class="nav pull-right <?php if($_SESSION['user']){echo "hidden";} ?>">
 							  			  <li>
-							  			  		<a href="#"><?php echo count($shopping_cart);?> <i class="icon-shopping-cart icon-large"></i></a>
+							  			  		<a href="checkout" id="shopping_count"><?php echo count($shopping_cart);?> <i class="icon-shopping-cart icon-large"></i></a>
 							  			  </li>
 						  			  </ul>
 						  </div>
@@ -75,8 +77,23 @@
 											echo "<tr>";
 											echo "<th>".$info['title']."</th>";
 											echo "<td>".$info['description']."</td>";
-											echo "<td>".number_format($info['price'], 2)."</td>";
-											echo "<td><button data-id='".$info['id']."' class='btn btn-success add_to_cart'>Add to Cart</button></td>";
+											echo "<td>$".number_format($info['price'], 2)."</td>";
+											$count = 0;
+											for($i=0; $i<count($shopping_cart); $i++){
+												if($shopping_cart[$i]['id'] == $info['id']){
+													$count++;
+												}
+												
+											}
+											echo "<td data-id='".$info['id']."' data-count='".$count."' class='amount_in_cart'>".$count." in cart</td>";
+											if($count > 0){
+												echo "<td><button data-id='".$info['id']."' class='btn btn-danger pull-right remove_from_cart'>Remove Item</button></td>";
+											}else{
+												echo "<td><button data-id='".$info['id']."' class='btn btn-danger pull-right remove_from_cart hidden'>Remove Item</button></td>";
+
+											}
+											echo "<td><button data-id='".$info['id']."'  data-title='".$info['title']."'  data-price='".$info['price']."' class='btn btn-success pull-right add_to_cart'>Add to Cart</button></td>";
+											echo "</tr>";
 
 										}
 									
@@ -86,7 +103,9 @@
 								
 							
 							</div>
-						
+							<div class="row-fluid" align="center">
+								<button class="btn btn-large btn-primary" id="checkout_button">Checkout <i class="icon-shopping-cart icon-large"></i></button>
+							</div>
 						</div>
 
                   </div><!--end of main-->
@@ -113,6 +132,103 @@
         <!-- end of basics-->
                         
         <script type="text/javascript">
+	        $(".add_to_cart").click(function(e){
+	        	e.preventDefault();
+	        	
+		       	$(this).append('<div class="center spinner"><i class="icon-spinner icon-spin"></i></div>');	                   
+
+		       	var item = $(this).data("id");
+		       	var title = $(this).data("title");
+		       	var price = $(this).data("price");
+
+		       	var data = {
+			       	item: item,
+			       	title: title,
+			       	price: price
+		       	};
+		       	
+		       	$.ajax({
+		       	     type: "POST",
+		       	     url: "scripts/add_to_cart.php",
+		       	     data: data,
+		       	     success: function (res) {
+		       	     	$(".add_to_cart div").remove(".spinner");
+
+		       	          if (res != false) {
+		       	                  $("#shopping_count").html(res+ '<i class="icon-shopping-cart icon-large"></i>');
+		       	                  $(".amount_in_cart").each(function(){
+			       	                  var id = $(this).data("id");
+			       	                  var amount = parseInt($(this).data("count"));
+			       	                  if(id == item){
+			       	                  	var total = amount+1;
+				       	                  $(this).html(total+" in cart");
+				       	                  $(this).data("count", total);
+				       	                  $(".remove_from_cart").each(function(){
+					       	                 	var remove_id = $(this).data("id"); 
+					       	                 	if(remove_id == item){
+					       	                 		$(this).removeClass("hidden");
+					       	                 		$(this).show();
+					       	                 	}
+				       	                  });
+			       	                  }
+		       	                  })
+		       	                  
+		       	                  
+		       	          } else {
+		       	                  //failure action
+		       	          }
+		       	
+		       	     }
+		       	});
+		       	
+		       	
+	        });
+	        
+	         $(".remove_from_cart").click(function(e){
+	        	e.preventDefault();
+	        	var button = $(this);
+		       	$(this).append('<div class="center spinner"><i class="icon-spinner icon-spin"></i></div>');	                   
+
+		       	var item = $(this).data("id");
+		       	
+		       	var data = {
+			       	item: item
+		       	};
+		       	
+		       	$.ajax({
+		       	     type: "POST",
+		       	     url: "scripts/remove_from_cart.php",
+		       	     data: data,
+		       	     success: function (res) {
+		       	     	$(".remove_from_cart div").remove(".spinner");
+
+		       	                  $("#shopping_count").html(res+ '<i class="icon-shopping-cart icon-large"></i>');
+		       	                  $(".amount_in_cart").each(function(){
+			       	                  var id = $(this).data("id");
+			       	                  var amount = parseInt($(this).data("count"));
+			       	                  if(id == item){
+			       	                  		var total = amount-1;
+				       	                  $(this).html(total+" in cart");
+				       	                  $(this).data("count", total);
+				       	                  
+				       	                  if(total <= 0){
+					       	                  button.hide();
+				       	                  }
+			       	                  }
+		       	                  })
+		       	                  
+		       	       
+		       	
+		       	     }
+		       	});
+		       	
+		       	
+	        });
+	        
+	        $("#checkout_button").click(function(e){
+		        e.preventDefault();
+		        window.location = "checkout";
+	        });
 
 
         </script><!-- end of other scripts -->

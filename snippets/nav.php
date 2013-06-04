@@ -6,9 +6,9 @@
  
   				  <ul class="nav pull-right <?php if($_SESSION['user']){echo "hidden";} ?>">
        
-                        				<li>
-                                    
-                                        </li>
+                        				  <li>
+							  			  		<a href="checkout" id="shopping_count"><?php echo count($shopping_cart);?> <i class="icon-shopping-cart icon-large"></i></a>
+							  			  </li>
 
                     </ul>
 
