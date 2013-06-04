@@ -2,7 +2,7 @@
 <div class="navbar">
   <div class="navbar-inner">
 
-    <a class="brand" href="../">Museao Cafe</a>
+    <a class="brand" href="../">museao cafe</a>
  
   				  <ul class="nav pull-right <?php if($_SESSION['user']){echo "hidden";} ?>">
        
