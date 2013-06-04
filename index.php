@@ -1,5 +1,10 @@
-<?php session_start(); if($_SESSION[ 'user']){ header( 'Location: profile'); } //checks if the user is logged in ?> 
+<?php session_start(); if($_SESSION[ 'user']){ header( 'Location: admin'); } //checks if the user is logged in ?> 
+<?php
+	//get cart
+	
+	$shopping_cart = $_SESSION['cart'];
 
+?>
 <!DOCTYPE html>
 <html lang="en">
     
@@ -17,7 +22,7 @@
         <link href="assets/css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
         <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="assets/css/smoothness/jquery.custom.min.css " rel="stylesheet" type="text/css">
+        <link href="assets/css/smoothness/jquery-ui.custom.min.css " rel="stylesheet" type="text/css">
         <link href="assets/css/style.css" rel="stylesheet" type="text/css">
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -50,10 +55,38 @@
 						    <a class="brand" href="../">museao cafe</a>
 						 
 						  			  <ul class="nav pull-right <?php if($_SESSION['user']){echo "hidden";} ?>">
-						       
+							  			  <li>
+							  			  		<a href="#"><?php echo count($shopping_cart);?> <i class="icon-shopping-cart icon-large"></i></a>
+							  			  </li>
 						  			  </ul>
 						  </div>
 						  </div>
+						</div>
+						
+						<div class="container">
+							<div class="row-fluid">
+								<table id="feed" class="table table-bordered table-striped">
+									
+									<?php
+										$data = mysql_query("SELECT * FROM items ORDER BY title")or die(mysql_error());
+										
+										while($info=mysql_fetch_array($data)){
+											
+											echo "<tr>";
+											echo "<th>".$info['title']."</th>";
+											echo "<td>".$info['description']."</td>";
+											echo "<td>".number_format($info['price'], 2)."</td>";
+											echo "<td><button data-id='".$info['id']."' class='btn btn-success add_to_cart'>Add to Cart</button></td>";
+
+										}
+									
+									?>
+									
+								</table>
+								
+							
+							</div>
+						
 						</div>
 
                   </div><!--end of main-->
@@ -63,14 +96,15 @@
         <hr>
         <footer>
         	<div class="container" align="center">
-        		<a href="login">Admin</a>
+        		<a href="../">Museao</a> | <a href="">Help</a> | <a href="login">Admin</a>
 	        <div>
         </footer><!-- end of foooooooter -->
         
         
+       
+        
         <!-- Le javascript-->
 	    <!-- Placed at the end of the document so the pages load faster -->
-	    <!--davestrap comes with a bunch of really sweet js files to use.  below are the basics that should be in every single webpage you ever make-->
         <script src="assets/js/jquery.js" type="text/javascript"></script>
         <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="assets/js/jquery-ui.custom.min.js" type="text/javascript"></script>
@@ -79,12 +113,10 @@
         <!-- end of basics-->
                         
         <script type="text/javascript">
-        
-           
+
+
         </script><!-- end of other scripts -->
-        
-        <?php if($use_facebook){include( "scripts/facebook-js.php");}?> <!-- used for facebook controls, if you don't want to use facebook just ignore-->
-        
+                
     </body>
 
 </html>

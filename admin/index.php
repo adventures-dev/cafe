@@ -1,7 +1,9 @@
 <?php session_start(); if(!$_SESSION[ 'user']){ header('Location: ../login'); } ?>
 <?php include("../scripts/dbconnect.php");?>
 <?php include("../snippets/header.php");?>
+<title>Admin</title>
 <?php include("../scripts/user-info.php");?>
+
 <div id="mainpage">
     <?php include("../snippets/nav.php");?>
     <!--body goes here-->
