@@ -66,6 +66,16 @@
 						</div>
 						
 						<div class="container">
+							<?php
+								if($_GET['purchase'] == "successful"){
+									
+									echo '<div class="alert alert-success">
+											  <button type="button" class="close" data-dismiss="alert">&times;</button>
+											  <strong>Success!</strong> Your purchase was successful!
+											</div>';
+								}
+						
+							?>
 							<div class="row-fluid">
 								<table id="feed" class="table table-bordered table-striped">
 									
