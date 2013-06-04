@@ -90,7 +90,6 @@
     
 	        rules: {
 	            edit_title: "required",
-	            edit_description: "required",
 	            edit_price: "required"
 	
 	        },
