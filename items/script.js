@@ -43,7 +43,6 @@
     
 	        rules: {
 	            title: "required",
-	            description: "required",
 	            price: "required"
 	
 	        },
