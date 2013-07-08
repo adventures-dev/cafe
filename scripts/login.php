@@ -4,6 +4,8 @@ include('dbconnect.php');
 
 $username = $_POST['username'];
 $password = $_POST['password'];
+$username = mysql_real_escape_string($username);
+$password = mysql_real_escape_string($password);
 
 if ($username && $password) {
     $username = strtolower($username);

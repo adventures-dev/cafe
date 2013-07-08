@@ -14,6 +14,10 @@ $username = $_POST['username'];
 $newpassword = $_POST['newpassword'];
 $oldpassword = $_POST['oldpassword'];
 
+$username = mysql_real_escape_string($username);
+$newpassword = mysql_real_escape_string($newpassword);
+$oldpassword = mysql_real_escape_string($oldpassword);
+
 if ($oldpassword) {
 	$username = strtolower($username);
 	$query = mysql_query("SELECT * FROM users WHERE username = '$oldusername'") or die(mysql_error());
